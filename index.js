@@ -13,24 +13,56 @@ const connection = mysql.createConnection({
 })
 connection.connect((err)=>{
     if(err)throw err;
-    findEmployees();
 });
 connection.query = util.promisify(connection.query);
 
 
+
+//----------------These commands get table info from the sql---------------------
+async function findDepartments(){
+    const responce = await connection.query(
+        "SELECT * FROM department"
+    );
+    console.log(" ");
+    console.log("Current departments:");
+    for(var x = 0; x < responce.length; x++){
+        console.log(responce[x].name);
+    }
+}
+
+async function findRoles(){
+    const responce = await connection.query(
+        "SELECT * FROM role"
+    );
+    console.log(" ");
+    console.log("Current roles/salary:");
+    for(var x = 0; x < responce.length; x++){
+        console.log(responce[x].title,"/",responce[x].salary);
+    }
+}
+
 async function findEmployees(){
     const responce = await connection.query(
-    "SELECT * FROM department;");
-    console.log(responce);
-    return responce;
-}
-// module.exports = findEmployees();
-// findEmployees().then
+    "SELECT first_name,last_name FROM employee;"
+    );
+    console.log(" ");
+    console.log("Employee's name (first/last):")
+    for(var x = 0; x < responce.length; x++){
+        console.log(responce[x].first_name," ",responce[x].last_name);
+    }
 
-async function viewEmployees(){
-    const employees = await findEmployees();
-    console.log(employees);
 }
-// viewEmployees();
+
+async function viewSQLData(){
+    findDepartments();
+    findRoles();
+    findEmployees();
+}
+//-------------------------------------------------end------------------------------
+viewSQLData();
+//MAKE INQUIRER
+
+
+
 
 //ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
