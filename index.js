@@ -1,4 +1,6 @@
 const mysql = require("mysql");
+const util = require("util");
+
 // const inquire = require("inquirer");
 //const inquirer = require("inquirer");
 
@@ -9,20 +11,26 @@ const connection = mysql.createConnection({
     port:"3306",
     database:"employees",
 })
-connection.connect();
+connection.connect((err)=>{
+    if(err)throw err;
+    findEmployees();
+});
+connection.query = util.promisify(connection.query);
 
-function findEmployees(){
-    return connection.query(
-    "SELECT * FROM employee "
-    );
+
+async function findEmployees(){
+    const responce = await connection.query(
+    "SELECT first_name FROM employee;");
+    console.log(responce);
+    return responce;
 }
 // module.exports = findEmployees();
-findEmployees().then
+// findEmployees().then
 
 async function viewEmployees(){
     const employees = await findEmployees();
     console.log(employees);
 }
-viewEmployees();
+// viewEmployees();
 
 //ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
