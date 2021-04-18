@@ -20,7 +20,7 @@ connection.query = util.promisify(connection.query);
 
 async function findEmployees(){
     const responce = await connection.query(
-    "SELECT first_name FROM employee;");
+    "SELECT * FROM department;");
     console.log(responce);
     return responce;
 }
