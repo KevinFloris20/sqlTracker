@@ -7,11 +7,11 @@ VALUES ("Bourgeoisie"),("workingClass");
 INSERT into role(title,salary,department_id)
 
 VALUES
-("manager",200000,2), 
-("Accountant",15000,1), 
-("Overseer", 12000, 1), 
-("proletariat",8000,1),
-("lowerclass",5000,1);
+("manager",200000,1), 
+("Accountant",15000,2), 
+("Overseer", 12000, 2), 
+("proletariat",8000,2),
+("lowerclass",5000,2);
 
 
 INSERT into employee(first_name,last_name,role_id,manager_id)
